@@ -1,2 +1,23 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<h1><%= @product.title %></h1>
+
+	<% @product.photos.each do | photo | %>
+		<%= image_tag(photo.url)%>	<br> <br>
+	<% end %>
+<strong>  Price:</strong> <%= @product.price %> <br>
+<h3> <strong>Short description</strong> <br></h3>
+  <%= @product.description %> <br> <br>
+<strong>Characteristic</strong><br>
+<strong>Category: </strong><%= Category.find_by(id: @product.category_id).try(:title) %><br>
+<strong>Producer country: </strong><%= Country.find_by(id: @product.country_id).try(:title) %> <br>
+<strong>Producer:</strong>  <%= @product.producer %> <br>
+
+<% if user_signed_in? %>
+  <% if current_user.id == 1 %>
+
+    <hr>
+    <%= link_to "Edit", edit_product_path %> |
+    <%= link_to "Delete", product_path(@product.id), method: :delete %>
+
+
+  <% end %>
+<% end %>
