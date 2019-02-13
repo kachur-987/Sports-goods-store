@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     end
 
     def create
-      @product = current_user.products.build(product_params)
+      @product = Product.new(product_params)
       if @product.save
         flash[:notice] = "Successfully created"
         redirect_to product_path(@product.id)
@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
     end
 
     def show
-      @comments = @product.comments
+    #   @comments = @product.comments
     end
 
     def edit

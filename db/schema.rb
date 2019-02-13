@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20190213183250) do
 
   create_table "products", force: :cascade do |t|
     t.integer "category_id"
-    t.integer "user_id"
     t.string "title"
     t.integer "price"
     t.integer "country_id"
