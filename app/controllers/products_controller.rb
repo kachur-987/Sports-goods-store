@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   def index
-      @products = Product.all
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
     def new
@@ -20,6 +21,8 @@ class ProductsController < ApplicationController
     end
 
     def show
+      @q = Product.ransack(params[:q])
+      @products = @q.result(distinct: true)
     end
 
     def edit
@@ -41,10 +44,10 @@ class ProductsController < ApplicationController
     end
   private
     def product_params
-      params.require(:product).permit(:user_id, :title, :description, :price, :category_id, :country_id, :producer , {photos: []})
+      params.require(:product).permit(:title, :description, :price, :category_id, :country_id, :producer , {photos: []})
     end
 
     def find_product
      @product = Product.find_by(id: params[:id])
-   end
+    end
 end
